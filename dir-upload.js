@@ -38,7 +38,7 @@ walker.on("file", (root, fileStats, next) => {
   }
 
   let ap = path.join(root, fileStats.name);
-  let rp = path.relative(dirname, ap);
+  let rp = path.relative(dirname, ap).replace('\\', '/');
   let stream = fs.createReadStream(ap);
   let uploadIdPromise = s3Uploader.startUpload({ Key: rp }, stream, {orginalPath: rp});
   stream.on('end', () => {
