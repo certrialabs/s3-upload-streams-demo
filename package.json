@@ -18,6 +18,7 @@
   "homepage": "https://github.com/elsix/s3-upload-streams-demo#readme",
   "dependencies": {
     "aws-sdk": "^2.22.0",
+    "lodash": "^4.17.4",
     "s3-upload-streams": "git+https://github.com/elsix/s3-upload-streams.git#401b1dd76418a9a11ab0b47345cf2a997be9a9e3",
     "walk": "^2.3.9",
     "yargs": "^6.6.0"
