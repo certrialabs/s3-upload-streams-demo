@@ -1,0 +1,25 @@
+{
+  "name": "s3-upload-streams-demo",
+  "version": "1.0.0",
+  "description": "Demo application for s3-upload-streams package",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elsix/s3-upload-streams-demo.git"
+  },
+  "author": "Kiril Kalchev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/elsix/s3-upload-streams-demo/issues"
+  },
+  "homepage": "https://github.com/elsix/s3-upload-streams-demo#readme",
+  "dependencies": {
+    "aws-sdk": "^2.22.0",
+    "s3-upload-streams": "git+https://github.com/elsix/s3-upload-streams.git#401b1dd76418a9a11ab0b47345cf2a997be9a9e3",
+    "walk": "^2.3.9",
+    "yargs": "^6.6.0"
+  }
+}
