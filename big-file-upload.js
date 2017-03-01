@@ -16,10 +16,12 @@ let bucket = argv.awsBucket;
 let accessKeyId = argv.awsAccessKeyId;
 let accessKeySecret = argv.awsAccessKeySecret;
 let region = argv.awsRegion;
-let partsPerUploader = argv.partsPerUploader || 1;
+let partsPerUploader = argv.partsPerUploader || 2;
 let partSize = argv.awsPartSize || 5242880; // 5MB
 let maxConcurentUploads = argv.concurentUploads || 10;
 let ssl = argv.awsSslEnabled || true;
+// Starting part offset fot this uploader. Amazon works perfect if part numbers are not concecutive numbers.
+let uploaderOffset = argv.uploaderOffset || partsPerUploader;
 let uploaders = [];
 let parts = [];
 
@@ -107,7 +109,7 @@ startUpload()
       })
     );
     currentOffset = currentOffset + partsPerUploader*partSize;
-    awsCurrentOffset += partsPerUploader;
+    awsCurrentOffset += uploaderOffset;
   }
 
   return Promise.all(parts)
