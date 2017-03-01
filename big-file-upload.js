@@ -31,11 +31,10 @@ let startUpload = () => {
     sslEnabled: true
   });
 
-  let stream = fs.createReadStream(filename, {start: -1, end: -1});
   let s3Uploader = new Uploader(s3, bucket, partSize, maxConcurentUploads);
   let idPromise = s3Uploader.startUpload(
     { Key: destKey },
-    stream,
+    null,
     { }
   );
 
@@ -80,7 +79,7 @@ let endUpload = (awsUploadId, parts) => {
   let s3Uploader = new Uploader(s3, bucket, partSize, maxConcurentUploads);
   let idPromise = s3Uploader.startUpload(
     { Key: destKey },
-    stream,
+    null,
     { orginalPath: filename },
     {
       UploadId: awsUploadId,
