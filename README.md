@@ -14,7 +14,7 @@ To launch any of the examples you have to:
  `npm install`
 3. Start an example.
 
- `node <script-name> --awsBucket <your-bucket-goes-here> --awsAccessKeyId <aws-access-key-id> --awsAccessKeySecret <aws-access-key-secret> --awsRegion <region-id> <example-specific-params> `
+ `node <script-name> --awsBucket <your-bucket-goes-here> --awsAccessKeyId <aws-access-key-id> --awsAccessKeySecret <aws-access-key-secret> <example-specific-params> `
 
 # Common Parameters
 ## Required
@@ -25,15 +25,13 @@ To launch any of the examples you have to:
  
  `--awsAccessKeySecret`- Your [awsAccessKeySecert](https://www.cloudberrylab.com/blog/how-to-find-your-aws-access-key-id-and-secret-access-key-and-register-with-cloudberry-s3-explorer/).
  
- `--awsRegion` - The region that you want to use as default.
- 
 ## Optional
 
  `--awsPartSize` - The size of chunks that will be uploaded to s3. 
  
  `--concurentUploads`- The maximum number of chunks that will be uploaded to s3 simultaneously.
  
- `--awsSslEnabled` - Enables and disables ssl for communication with s3.
+ `--awsDisableSsl` - Enables and disables ssl for communication with s3.
 # Examples
  Each example is a standalone nodes script. You can launch all of them using
  ## Encryption Directory Upload
