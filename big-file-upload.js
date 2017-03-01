@@ -13,7 +13,6 @@ let destKey = argv.destKey;
 let bucket = argv.awsBucket;
 let accessKeyId = argv.awsAccessKeyId;
 let accessKeySecret = argv.awsAccessKeySecret;
-let region = argv.awsRegion;
 let partsPerUploader = argv.partsPerUploader || 2;
 let partSize = argv.awsPartSize || 5242880; //eslint-disable-line no-inline-comments 5MB
 let maxConcurentUploads = argv.concurentUploads || 10;
@@ -25,7 +24,6 @@ let startUpload = () => {
   let s3 = new aws.S3({
     accessKeyId: accessKeyId,
     secretAccessKey: accessKeySecret,
-    region: region,
     sslEnabled: ssl
   });
 
@@ -44,7 +42,6 @@ let preparePartUploader = (start, end, partialUploadParams) => {
     let s3 = new aws.S3({
       accessKeyId: accessKeyId,
       secretAccessKey: accessKeySecret,
-      region: region,
       sslEnabled: true
     });
 
@@ -69,7 +66,6 @@ let endUpload = (awsUploadId, parts) => {
   let s3 = new aws.S3({
     accessKeyId: accessKeyId,
     secretAccessKey: accessKeySecret,
-    region: region,
     sslEnabled: true
   });
 

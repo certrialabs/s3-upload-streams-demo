@@ -15,7 +15,6 @@ let dirname = argv.dir;
 let bucket = argv.awsBucket;
 let accessKeyId = argv.awsAccessKeyId;
 let accessKeySecret = argv.awsAccessKeySecret;
-let region = argv.awsRegion;
 let concurrentFiles = argv.concurentFiles || 5;
 let partSize = argv.awsPartSize || 5242880; //eslint-disable-line no-inline-comments 5MB
 let maxConcurentUploads = argv.concurentUploads || 10;
@@ -27,7 +26,6 @@ let currentUploads = 1;
 let s3 = new aws.S3({
   accessKeyId: accessKeyId,
   secretAccessKey: accessKeySecret,
-  region: region,
   sslEnabled: ssl
 });
 
