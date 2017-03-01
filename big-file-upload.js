@@ -70,7 +70,6 @@ let preparePartUploader = (start, end, partialUploadParams) => {
 };
 
 let endUpload = (awsUploadId, parts) => {
-  console.log(parts);
   let s3 = new aws.S3({
     accessKeyId: accessKeyId,
     secretAccessKey: accessKeySecret,
@@ -114,7 +113,7 @@ startUpload()
   }
 
   return Promise.all(parts)
-  .then(parts => endUpload(awsUploadId, _.sortBy(_.flattenDeep(parts), ['PartNumber'])))
+  .then(parts => endUpload(awsUploadId, _.flattenDeep(parts)))
   .then(metadata => console.log(`Uploaded ${metadata.additionalMetadata.orginalPath} to ${metadata.location}`));
 })
 .catch(err => console.log(err.stack));
