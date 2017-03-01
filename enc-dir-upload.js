@@ -18,7 +18,7 @@ let accessKeySecret = argv.awsAccessKeySecret;
 let concurrentFiles = argv.concurentFiles || 5;
 let partSize = argv.awsPartSize || 5242880; //eslint-disable-line no-inline-comments 5MB
 let maxConcurentUploads = argv.concurentUploads || 10;
-let ssl = argv.awsSslEnabled || true;
+let ssl = !(argv.awsDisableSsl || false);
 let password = 'foo';
 let algorithm = 'aes-256-ctr';
 

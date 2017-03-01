@@ -16,7 +16,7 @@ let accessKeySecret = argv.awsAccessKeySecret;
 let partsPerUploader = argv.partsPerUploader || 2;
 let partSize = argv.awsPartSize || 5242880; //eslint-disable-line no-inline-comments 5MB
 let maxConcurentUploads = argv.concurentUploads || 10;
-let ssl = argv.awsSslEnabled || true;
+let ssl = !(argv.awsDisableSsl || false);
 // Starting part offset fot this uploader. Amazon works perfect if part numbers are not concecutive numbers.
 let uploaderOffset = argv.uploaderOffset || partsPerUploader;
 
