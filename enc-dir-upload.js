@@ -8,6 +8,8 @@ let path = require('path');
 let fs = require('fs');
 let aws = require('aws-sdk');
 let Uploader = require('s3-upload-streams');
+let crypto = require('crypto');
+let zlib = require('zlib');
 
 let dirname = argv.dir;
 let bucket = argv.awsBucket;
@@ -18,6 +20,8 @@ let concurrentFiles = argv.concurentFiles || 5;
 let partSize = argv.awsPartSize || 5242880; // 5MB
 let maxConcurentUploads = argv.concurentUploads || 10;
 let ssl = argv.awsSslEnabled || true;
+let password = 'foo';
+let algorithm = 'aes-256-ctr';
 
 let currentUploads = 1;
 let s3 = new aws.S3({
@@ -39,7 +43,8 @@ walker.on("file", (root, fileStats, next) => {
 
   let ap = path.join(root, fileStats.name);
   let rp = path.relative(dirname, ap).replace('\\', '/');
-  let stream = fs.createReadStream(ap);
+  let stream = fs.createReadStream(ap).pipe(zlib.createGzip()).pipe(crypto.createCipher(algorithm, password));
+
   let uploadIdPromise = s3Uploader.startUpload({ Key: rp }, stream, {orginalPath: rp});
   stream.on('end', () => {
     uploadIdPromise
