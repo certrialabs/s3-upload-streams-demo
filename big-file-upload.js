@@ -3,8 +3,6 @@
 'use strict';
 
 let argv = require('yargs').argv;
-let walk = require('walk');
-let path = require('path');
 let fs = require('fs');
 let aws = require('aws-sdk');
 let _ = require('lodash');
@@ -17,20 +15,18 @@ let accessKeyId = argv.awsAccessKeyId;
 let accessKeySecret = argv.awsAccessKeySecret;
 let region = argv.awsRegion;
 let partsPerUploader = argv.partsPerUploader || 2;
-let partSize = argv.awsPartSize || 5242880; // 5MB
+let partSize = argv.awsPartSize || 5242880; //eslint-disable-line no-inline-comments 5MB
 let maxConcurentUploads = argv.concurentUploads || 10;
 let ssl = argv.awsSslEnabled || true;
 // Starting part offset fot this uploader. Amazon works perfect if part numbers are not concecutive numbers.
 let uploaderOffset = argv.uploaderOffset || partsPerUploader;
-let uploaders = [];
-let parts = [];
 
 let startUpload = () => {
   let s3 = new aws.S3({
     accessKeyId: accessKeyId,
     secretAccessKey: accessKeySecret,
     region: region,
-    sslEnabled: true
+    sslEnabled: ssl
   });
 
   let s3Uploader = new Uploader(s3, bucket, partSize, maxConcurentUploads);
@@ -52,7 +48,7 @@ let preparePartUploader = (start, end, partialUploadParams) => {
       sslEnabled: true
     });
 
-    let stream = fs.createReadStream(filename, {start: start, end: end});
+    let stream = fs.createReadStream(filename, { start: start, end: end });
     let s3Uploader = new Uploader(s3, bucket, partSize, maxConcurentUploads);
     let promiseId = s3Uploader.startUpload(
       { Key: destKey },
@@ -77,7 +73,6 @@ let endUpload = (awsUploadId, parts) => {
     sslEnabled: true
   });
 
-  let stream = fs.createReadStream(filename, {start: -1, end: -1});
   let s3Uploader = new Uploader(s3, bucket, partSize, maxConcurentUploads);
   let idPromise = s3Uploader.startUpload(
     { Key: destKey },
@@ -101,7 +96,9 @@ startUpload()
 .then(awsUploadId => {
   let parts = [];
   while(currentOffset < stats.size) {
-    let end = stats.size < currentOffset + partsPerUploader*partSize - 1  ? stats.size : currentOffset + partsPerUploader*partSize - 1
+    let end = stats.size < currentOffset + partsPerUploader*partSize - 1  ?
+      stats.size :
+      currentOffset + partsPerUploader*partSize - 1;
     parts.push(
       preparePartUploader(currentOffset, end, {
         UploadId: awsUploadId,
