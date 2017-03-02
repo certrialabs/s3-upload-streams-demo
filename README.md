@@ -33,8 +33,9 @@ To launch any of the examples you have to:
  
  `--awsDisableSsl` - Enables and disables ssl for communication with s3.
 # Examples
- Each example is a standalone nodes script. You can launch all of them using
- ## Encryption Directory Upload
+ Each example is a standalone nodes script. You can launch each of them using node4 or later.
+
+## Encryption Directory Upload
 This example illustrates how to upload multiple objects(compressed and encrypted files) which length you don't know beforehand.
 It illustrates a basic usage of node streaming API and how it integrates with [s3-upload-streams](https://github.com/elsix/s3-upload-streams) module.
 
